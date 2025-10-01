@@ -59,7 +59,7 @@ public class LinkedList {
             Node n = new Node(data);
             Node curr = head;
             //as long as next element of head isnt null and its less then our insertion
-            while(curr.next != null && curr.next.data < data){
+            while(curr.next != null && curr.next.data > data){
                 curr = curr.next;
             }
             n.next = curr.next; //pushing numbers back one spot for insertion 
