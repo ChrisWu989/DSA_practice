@@ -176,6 +176,3 @@ public class DoubleLinkedList {
         list.displayB();
     }
 }
-//traverse a doubly linked list backwards and forwards
-//insert begin, between, end
-//delete begin, between, end

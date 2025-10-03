@@ -168,6 +168,33 @@ public class LinkedList {
         head = prev;               //   new head of reversed list
         isReversed = !isReversed;  //   boolean to tell list is reversed
     }
+
+    /*
+    PROBLEM1:
+    Modify linked list in such a way that last node become the first node of the list.
+    list:{1,2,3,4}
+    output:{4,1,2,3}
+     */
+    public void moveLastToFront() {
+        if (head == null || head == tail) {
+            return; // empty or single node list
+        }
+
+        Node secLast = head;
+
+        // Traverse to last node
+        while (secLast.next != tail) {
+            secLast = secLast.next;
+        }
+
+        Node last = tail; //tail is last node
+
+        secLast.next = null;   // remove last node
+        tail = secLast;        // tail = 2nd to last
+        last.next = head;   // link last node to front
+        head = last;        // update head
+    }
+
     public void display() {
         Node current = head;
         while (current != null) {
@@ -179,9 +206,10 @@ public class LinkedList {
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
 
-        list.insert_node_end(10);
-        list.insert_node_end(20);
-        list.insert_node_end(30);
+        list.insert_node_end(1);
+        list.insert_node_end(2);
+        list.insert_node_end(3);
+        list.insert_node_end(4);
 
         // list.delete_node_begin();
         // list.display();
@@ -190,8 +218,31 @@ public class LinkedList {
         // list.delete_between(20);
         // list.display();
 
-        list.reverse();
-        list.insert_between(15);
-        list.display();;
+        // list.reverse();
+        // list.insert_between(15);
+        // list.display();
+        list.display();
+        list.moveLastToFront();
+        list.display();
     }
 }
+
+
+/*
+PROBLEM2:
+You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order
+and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
+You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+Example:
+Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
+Output: 7 -> 0 -> 8
+Explanation: 342 + 465 = 807
+
+Example 2:
+Input: l1 = [0], l2 = [0]
+Output: [0]
+
+Example 3:
+Input: l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]
+Output: [8,9,9,9,0,0,0,1]
+ */
