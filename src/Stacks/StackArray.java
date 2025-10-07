@@ -1,8 +1,7 @@
 package Stacks;
 /*
- Write stack implemented as an array for 5 elements pop, push, isfull, isempty, peek
- * check parenthesis leetcode question
- */
+Write stack implemented as an array for 5 elements pop, push, isfull, isempty, peek
+*/
 public class StackArray {
     private int maxSize;
     private int top;
