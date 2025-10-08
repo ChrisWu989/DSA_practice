@@ -1,21 +1,11 @@
 package Stacks;
-/*
- * Write a stack implemented as a linked list pop, push, isfull, isempty, peek
- * check parenthesis leetcode question 
- * 
- * A-B+C -> AB-C+
- * A+B*C -> ABC*+
- * (A+B)*(C-D) -> AB+CD-*
- * ((A+B)+(C-D)+E)/(F+G) -> AB+CD-+E+FG+/
- * (A+B*(C-D))/E -> ABCD-*+E/
- * (A-B)-C+D*E+F -> AB-C-DE*+F+
- */
-public class StackLinkedList {
+
+class CharStackLinkedList{
     class Node {
-        int data;
+        char data;
         Node next;
 
-        Node(int data) {
+        Node(char data) {
             this.data = data;
             this.next = null;
         }
@@ -23,23 +13,23 @@ public class StackLinkedList {
 
     private Node top; // pointer to top of stack
 
-    public StackLinkedList() {
+    public CharStackLinkedList() {
         this.top = null;
     }
 
-    public void push(int data){
+    public void push(char data){
         Node n = new Node(data);
         n.next = top;
         top = n;
     }
 
-    public int pop(){
+    public char pop(){
         if (isEmpty()){
             System.out.println("Stack Underflow");
-            return -1;
+            return '\0';
         }
         else {
-            int popped = top.data;
+            char popped = top.data;
             top = top.next;
             return popped;
         }
@@ -49,12 +39,13 @@ public class StackLinkedList {
         return top == null;
     }
 
-    public int peek(){
+    public char peek(){
         if (isEmpty()){
             System.out.println("Stack Underflow");
-            return -1;
+            return '\0';
         }
         else{
+            System.out.println("Top element is " + top.data);
             return top.data;
         }
     }
@@ -73,30 +64,5 @@ public class StackLinkedList {
             }
             System.out.println();
         }
-    }
-
-    public static void main(String[] args) {
-        StackLinkedList stack = new StackLinkedList();
-
-        stack.push(10);
-        stack.push(20);
-        stack.push(30);
-        stack.push(40);
-        stack.push(50);
-        stack.push(60);
-
-        stack.display();
-
-        stack.peek();
-
-        stack.pop();
-        stack.pop();
-        stack.display();
-
-        stack.pop();
-        stack.pop();
-        stack.pop();
-        stack.pop();
-        stack.pop(); // should show stack empty
     }
 }

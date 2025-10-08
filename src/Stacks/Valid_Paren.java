@@ -34,6 +34,7 @@ public class Valid_Paren {
         }
     }
 
+    //checking valid (){}[]
     public static boolean isValid(String str) {
         Valid_Paren stack = new Valid_Paren();
 

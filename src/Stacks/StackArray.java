@@ -52,7 +52,6 @@ public class StackArray {
             return -1;
         }
         else{
-            System.out.println("Top element is " + stack[top]);
             return stack[top];
         }
     }
