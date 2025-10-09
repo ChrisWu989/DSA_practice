@@ -1,38 +1,5 @@
 package Stacks;
-/* 
-2)Design a stack that supports push, pop, top(peek), and retrieving the minimum and maximum element in constant time.
-push(x) -- Push element x onto stack.
-pop() -- Removes the element on top of the stack.
-peek() -- Get the top element.
-getMin() -- Retrieve the minimum element in the stack.
-getMax()--Retrieve the maximum element in the stack.
-Input: [1, 2, 5,0, 4, 3, 6,-2,4, 8]
-pop()
-Output:[ min:-2,max:6]
-
-Input: [1, 2, 5,0, 4, 3, 6,-2,4, 8]
-pop(),pop(),pop(),pop()
-Output:[ min:0,max:5]
- */
-
 /*
- * 4)Create a data structure twoStacks that represents two stacks.
-      Implementation of twoStacks should use only one array, i.e.,
-       both stacks should use the same array for storing elements. 
-       Following functions must be supported by twoStacks.
-push1(int x) –> pushes x to first stack 
-push2(int x) –> pushes x to second stack
-pop1() –> pops an element from first stack and return the popped element 
-pop2() –> pops an element from second stack and return the popped element
-Implementation of twoStack should be space efficient.
-The idea is to start two stacks from two extreme corners of arr[].
- stack1 starts from the leftmost element, the first element in stack1 is pushed at index 0. 
- The stack2 starts from the rightmost corner, the first element in stack2 is pushed at index (n-1).
-  Both stacks grow (or shrink) in opposite direction.
-   To check for overflow, all we need to check is for space between top elements of both stacks
- */
-
- /*
 5)Given an encoded string, return its decoded string.
 The encoding rule is: k[encoded_string], where the encoded_string inside the square brackets is being repeated exactly k times. Note that k is guaranteed to be a positive integer.
 You may assume that the input string is always valid; No extra white spaces, square brackets are well-formed, etc.
@@ -69,6 +36,7 @@ Example 3:
 Input: s = ""
 Output: 0
  */
+
 /*
 Minimum Insertions to Balance a Parentheses String
 Example 1:
