@@ -1,11 +1,11 @@
 package Stacks;
 
-class CharStackLinkedList {
+class StringStackLinkedList {
     class Node {
-        char data;
+        String data;
         Node next;
 
-        Node(char data) {
+        Node(String data) {
             this.data = data;
             this.next = null;
         }
@@ -13,22 +13,22 @@ class CharStackLinkedList {
 
     private Node top; // pointer to top of stack
 
-    public CharStackLinkedList() {
+    public StringStackLinkedList() {
         this.top = null;
     }
 
-    public void push(char data) {
+    public void push(String data) {
         Node n = new Node(data);
         n.next = top;
         top = n;
     }
 
-    public char pop() {
+    public String pop() {
         if (isEmpty()) {
             System.out.println("Stack Underflow");
-            return '\0';
+            return "";
         } else {
-            char popped = top.data;
+            String popped = top.data;
             top = top.next;
             return popped;
         }
@@ -38,10 +38,10 @@ class CharStackLinkedList {
         return top == null;
     }
 
-    public char peek() {
+    public String peek() {
         if (isEmpty()) {
             System.out.println("Stack Underflow");
-            return '\0';
+            return "";
         } else {
             System.out.println("Top element is " + top.data);
             return top.data;

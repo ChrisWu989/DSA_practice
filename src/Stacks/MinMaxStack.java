@@ -50,7 +50,7 @@ public class MinMaxStack {
         }
         else {
             int newMin = Math.min(data, top.min);       // min val
-            int newMax = Math.max(data,top.max);        // max val
+            int newMax = Math.max(data, top.max);        // max val
             Node n = new Node(data, newMin, newMax);    // insert new node tracking min and max
             n.next = top;
             top = n;

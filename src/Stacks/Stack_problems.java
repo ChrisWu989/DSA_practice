@@ -1,54 +1,4 @@
 package Stacks;
-/*
-5)Given an encoded string, return its decoded string.
-The encoding rule is: k[encoded_string], where the encoded_string inside the square brackets is being repeated exactly k times. Note that k is guaranteed to be a positive integer.
-You may assume that the input string is always valid; No extra white spaces, square brackets are well-formed, etc.
-Furthermore, you may assume that the original data does not contain any digits and that digits are only for those repeat numbers, k. For example, there won't be input like 3a or 2[4].
- Example 1:
-Input: s = "3[a]2[bc]"
-Output: "aaabcbc"
-Example 2:
-Input: s = "3[a2[c]]"
-Output: "accaccacc"
-Example 3:
-Input: s = "2[abc]3[cd]ef"
-Output: "abcabccdcdcdef"
-Example 4:
-Input: s = "abc3[cd]xyz"
-Output: "abccdcdcdxyz"
-*/
-
-/*
-6)Given a string containing just the characters '(' and ')', find the length of the longest valid (well-formed) parentheses substring.
-
-Example 1:
-
-Input: s = "(()"
-Output: 2
-Explanation: The longest valid parentheses substring is "()".
-Example 2:
-
-Input: s = ")()())"
-Output: 4
-Explanation: The longest valid parentheses substring is "()()".
-Example 3:
-
-Input: s = ""
-Output: 0
- */
-
-/*
-Minimum Insertions to Balance a Parentheses String
-Example 1:
-Input: s = "(()))"
-Output: 1
-Example 2:
-Input: s = "())"
-Output: 1
-Input: s = "))())("
-Output: 4
- */
-
  /*
 8)Given a parentheses string s containing only the characters '(' and ')'. A parentheses string is balanced iny left parenthesis '(' must have a corresponding two consecutive right parenthesis '))'.
 Left parenthesis '(' must go before the corresponding two consecutive right parenthesis '))'.
@@ -160,22 +110,80 @@ public class Stack_problems {
         }
         return tempStack;
     }
+
+    /*
+    Problem 5
+    Given an encoded string, return its decoded string.
+    The encoding rule is: k[encoded_string], where the encoded_string inside the square brackets is being repeated exactly k times. Note that k is guaranteed to be a positive integer.
+    You may assume that the input string is always valid; No extra white spaces, square brackets are well-formed, etc.
+    Furthermore, you may assume that the original data does not contain any digits and that digits are only for those repeat numbers, k. For example, there won't be input like 3a or 2[4]
+
+    Example 1:
+    Input: s = "3[a]2[bc]"
+    Output: "aaabcbc"
+    Example 2:
+    Input: s = "3[a2[c]]"
+    Output: "accaccacc"
+    Example 3:
+    Input: s = "2[abc]3[cd]ef"
+    Output: "abcabccdcdcdef"
+    Example 4:
+    Input: s = "abc3[cd]xyz"
+    Output: "abccdcdcdxyz"
+    */
+    public static String decode(String s) {
+        StackLinkedList countStack = new StackLinkedList();     // for repeat counts
+        StringStackLinkedList stringStack = new StringStackLinkedList(); // for string contexts
+
+        String curr = "";
+        int i = 0;
+
+        for (char c : s.toCharArray()) {
+            if (Character.isDigit(c)) {
+                i = i * 10 + (c - '0'); // Char digit in ascii to int
+            } 
+            else if (c == '[') { // open bracket means starting letters
+                countStack.push(i);
+                stringStack.push(curr);
+                i = 0;
+                curr = "";
+            } 
+            else if (c == ']') {
+                int repeat = countStack.pop(); // how many repeats
+                String decoded = curr; //thing we are printing
+                curr = stringStack.pop(); //previous decode added to curr
+                curr += decoded.repeat(repeat);  //curr adding new decodes based on repeat
+            } 
+            else {
+                curr += c; //incrememnting letters inbetween brackets
+            }
+        }
+
+        return curr;
+    }
     public static void main(String[] args) {
         // Problem 1
         // problem1("abcfgh");
 
-        // Problem 2
-        StackLinkedList stack = new StackLinkedList();
-        stack.push(34);
-        stack.push(23);
-        stack.push(92);
-        stack.push(98);
-        stack.push(31);
-        stack.push(3);
-        stack.push(34);
-        stack.display();
-        problem3(stack).display();
+        // Problem 3
+        // StackLinkedList stack = new StackLinkedList();
+        // stack.push(34);
+        // stack.push(23);
+        // stack.push(92);
+        // stack.push(98);
+        // stack.push(31);
+        // stack.push(3);
+        // stack.push(34);
+        // stack.display();
+        // problem3(stack).display();
+
+        //Problem 5
+        // System.out.println(decode("3[a]2[bc]"));       // aaabcbc
+        // System.out.println(decode("3[a2[c]]"));        // accaccacc
+        // System.out.println(decode("2[abc]3[cd]ef"));   // abcabccdcdcdef
+        // System.out.println(decode("abc3[cd]xyz"));     // abccdcdcdxyz
     }
 
 }
+
 
