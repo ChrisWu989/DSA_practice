@@ -1,8 +1,8 @@
 package Queues;
 
 public class ArrayQueue {
-    private int front, rear, maxSize;
-    private int[] queue;
+    public int front, rear, maxSize;
+    public int[] queue;
 
     public ArrayQueue(int maxSize) {
         this.maxSize = maxSize;

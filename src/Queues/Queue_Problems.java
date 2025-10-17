@@ -143,6 +143,88 @@ public class Queue_Problems {
     Output : Modified queue with following elements
             1 2 2 3
    */
+    public static void sort(ArrayQueue q) {
+        int n = getSize(q);
+
+        for (int i = 0; i < n; i++) {
+            // Find index of minimum element in first (n - i) elements
+            int minIndex = findMinIndex(q, n - i);
+
+            // Move the minimum element to the rear
+            moveMinToRear(q, minIndex, n - i);
+        }
+    }
+
+    // Get queue size
+    private static int getSize(ArrayQueue q) {
+        if (q.isEmpty()) return 0;
+        int count = 0;
+
+        // Dequeue and enqueue all elements to count them
+        int val = q.dequeue();
+        q.enqueue(val);
+        count++;
+
+        while (q.front != 0) {
+            val = q.dequeue();
+            q.enqueue(val);
+            count++;
+        }
+
+        return count;
+    }
+
+    // Find index of minimum element among first n elements
+    public static int findMinIndex(ArrayQueue q, int n) {
+        int minIndex = -1;
+        int minValue = Integer.MAX_VALUE;
+        int size = 0;
+
+        // To know total elements
+        int tempSize = 0;
+        while (!q.isEmpty()) {
+            q.enqueue(q.dequeue());
+            tempSize++;
+            if (tempSize == q.maxSize || tempSize > 10000) break;
+            if (tempSize > 100) break;
+            if (tempSize > q.maxSize) break;
+            if (tempSize > 0 && q.front == 0) break;
+        }
+
+        size = tempSize;
+
+        for (int i = 0; i < size; i++) {
+            int curr = q.dequeue();
+
+            if (i < n && curr < minValue) {
+                minValue = curr;
+                minIndex = i;
+            }
+
+            q.enqueue(curr);
+        }
+
+        return minIndex;
+    }
+
+    // Move the found minimum element to the rear
+    public static void moveMinToRear(ArrayQueue q, int minIndex, int n) {
+        int size = q.maxSize;
+        int minValue = 0;
+
+        for (int i = 0; i < size; i++) {
+            int curr = q.dequeue();
+
+            if (i == minIndex)
+                minValue = curr;
+            else
+                q.enqueue(curr);
+        }
+
+        // Put minValue at rear
+        q.enqueue(minValue);
+    }
+
     public static void main(String[] args) {
         // Problem 1
         // ArrayQueue q = new ArrayQueue(20);
