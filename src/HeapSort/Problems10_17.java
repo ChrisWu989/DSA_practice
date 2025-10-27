@@ -107,7 +107,7 @@ public class Problems10_17 {
     longest symmetric substring that can be obtained after replacing question marks with "<" or ">" characters
 
     Examples:
-    S = "<><??>>" turns into " <><<<>>" and the longest symmetric substring is "<<>>" so we return 4
+    S = "<><??>>" turns into " <><<><>" and the longest symmetric substring is "<<>>" so we return 4
     S = "??????" turns into "<<<>>>" and the longest symmetric substring is "<<<>>>" so we return 6
     S = "<<?" turns into "<<>" and the longest symmetric substring is "<>" so we return 2
     */
@@ -126,7 +126,7 @@ public class Problems10_17 {
                 maxLen = Math.max(maxLen, currLen);
                 left--;
                 right++;
-            }
+            } // <<>>
         }
 
         return maxLen;
@@ -173,6 +173,7 @@ public class Problems10_17 {
         if (num == 0) return Arrays.asList(0);
 
         List<Integer> result = new ArrayList<>();
+
         while (num != 0) {
             int remainder = num % -2;
             num /= -2;
@@ -198,7 +199,7 @@ public class Problems10_17 {
         int target = (int)Math.ceil(val / 2.0);
         return toBaseNeg2(target);
     }
-    
+
     /* 
     Problem 22
     Given are an array A of size N and an integer K
