@@ -179,7 +179,7 @@ public class AVLTree {
         return root;
     }
 
-    // INORDER traversal (sorted order)
+    // level traversal (sorted order)
     void levelOrder(Node node) {
         if (node == null)
             return;
@@ -218,6 +218,7 @@ public class AVLTree {
 
         // Delete a node
         tree.root = tree.delete(tree.root, 40);
+        tree.root = tree.delete(tree.root, 50);
 
         tree.levelOrder(tree.root);
         System.out.println();

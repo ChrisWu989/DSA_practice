@@ -1,6 +1,5 @@
 package Graph;
 
-import java.util.Arrays;
 //Shortest path problem (Dijkstra's algo which is greedy)
 //adjacency matrix but use lengths
 //distance array tracks shortest distances from vertex v1 to all other vertices
@@ -24,7 +23,7 @@ public class ShortestPath {
         int[] dist = new int[v];                // shortest distance from starting vertex
         boolean[] visited = new boolean[v];     // if vertex has been visited (same as final)
 
-        for (int i = 1; i < v; i++) {
+        for (int i = 0; i < v; i++) {
             dist[i] = Integer.MAX_VALUE;
             visited[i] = false;
         }
@@ -56,6 +55,7 @@ public class ShortestPath {
             System.out.println(i + "\t" + dist[i] + "\t\t" + visited[i]);
         }
     }
+
     public static void main(String[] args) {
         // Graph represented as adjacency matrix
         int[][] graph = {
@@ -67,7 +67,7 @@ public class ShortestPath {
             {0, 0, 0, 0, 0, 0}
         };
 
-        int starting = 0; // starting vertex 
+        int starting = 3; // starting vertex 
         dijkstra(graph, starting);
     }
 }

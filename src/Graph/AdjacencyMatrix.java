@@ -1,7 +1,6 @@
 package Graph;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class AdjacencyMatrix {
     public static int[][] buildAdjacencyMatrix(String[] vertices, String[][] edges) {
@@ -43,7 +42,66 @@ public class AdjacencyMatrix {
             System.out.println();
         }
     }
-        public static void main(String[] args) {
+
+    public static void bfs(String[] vertices, int[][] matrix, String start) {
+        boolean[] visited = new boolean[vertices.length];
+        Queue<Integer> queue = new LinkedList<>();
+
+        int startIndex = Arrays.asList(vertices).indexOf(start);
+        //No starting vertex
+        if (startIndex == -1) {
+            return;
+        }
+
+        visited[startIndex] = true;
+        queue.add(startIndex);
+
+        while (!queue.isEmpty()) {
+            int current = queue.poll();
+            System.out.print(vertices[current] + " ");
+
+            // explore all adjacent vertices
+            for (int i = 0; i < vertices.length; i++) {
+                if (matrix[current][i] == 1 && !visited[i]) {
+                    visited[i] = true;
+                    queue.add(i);
+                }
+            }
+        }
+        System.out.println();
+    }
+
+    public static void dfs(String[] vertices, int[][] matrix, String start) {
+        boolean[] visited = new boolean[vertices.length];
+        Stack<Integer> stack = new Stack<>();
+
+        int startIndex = Arrays.asList(vertices).indexOf(start);
+        //No starting vertex
+        if (startIndex == -1) {
+            return;
+        }
+
+        stack.push(startIndex);
+
+        while (!stack.isEmpty()) {
+            int current = stack.pop();
+
+            if (!visited[current]) {
+                visited[current] = true;
+                System.out.print(vertices[current] + " ");
+            }
+
+            // push adjacent vertices (in reverse order to mimic recursive DFS order)
+            for (int i = vertices.length - 1; i >= 0; i--) {
+                if (matrix[current][i] == 1 && !visited[i]) {
+                    stack.push(i);
+                }
+            }
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
         // Define vertex names
         String[] vertices = {"v1", "v2", "v3", "v4", "v5", "v6"};
 
@@ -61,5 +119,10 @@ public class AdjacencyMatrix {
 
         int[][] adjMatrix = buildAdjacencyMatrix(vertices, edges);
         printMatrix(vertices, adjMatrix);
+
+        System.out.println();
+
+        bfs(vertices, adjMatrix, "v1");
+        dfs(vertices, adjMatrix, "v1");
     }
 }
