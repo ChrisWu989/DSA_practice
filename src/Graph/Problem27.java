@@ -1,4 +1,6 @@
 package Graph;
+
+import java.util.PriorityQueue;
 /*
 Problem 27
 There is an array A of N integers and two types of opeartions that can be performed on the elements of the array
@@ -38,23 +40,76 @@ Examples
     - Total cost is 2000010000 but its returned modulo 10^9
 */
 public class Problem27 {
-    private long MOD = 1000000000; //10^9
-    public int solution(int[] A, int C1, int C2) {
-        // largest number in array A
-        int maxNum = 0;
+
+    private static long MOD = 1000000000; //10^9
+
+    public static int solution(int[] A, int C1, int C2) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        
+        int max = 0;
         for (int num : A) {
-            if (num > maxNum){
-                maxNum = num;
-            }
+            pq.offer(num);
+            max = Math.max(max, num);
         }
 
-        // Sum of differences of each element
-        // diff = maxNum - A[i]
-        // totalDiff = sum(diff)
-        long totalDiff = 0;
-        for(int num : A) {
-            totalDiff += (maxNum - num);
+        long cost = 0;
+
+        // If pairing is not cheaper, use only single increments
+        if (C2 >= 2L * C1) {
+            while (!pq.isEmpty()) {
+                int val = pq.poll();
+                cost += (long) (max - val) * C1;
+            }
+            return (int) (cost % MOD);
         }
-        return (int) result;
+
+        while (pq.size() > 1) {
+            int first = pq.poll();
+            if (first == max) break; // all remaining are max
+
+            int second = pq.poll();
+
+            int diff1 = max - first;
+            int diff2 = max - second;
+            int canPair = Math.min(diff1, diff2);
+
+            if (canPair <= 0) {
+                // If no pairing possible, handle remaining with singles
+                pq.offer(second);
+                cost += (long) diff1 * C1;
+                continue;
+            }
+
+            // Apply paired increments
+            cost += (long) canPair * C2;
+
+            first += canPair;
+            second += canPair;
+
+            if (first < max) pq.offer(first);
+            if (second < max) pq.offer(second);
+        }
+
+        // Handle remaining singles
+        while (!pq.isEmpty()) {
+            int val = pq.poll();
+            cost += (long) (max - val) * C1;
+        }
+
+        return (int) (cost % MOD);
+    }
+
+    public static void main(String[] args) {
+        int[] A = {1,4};
+        System.out.println(solution(A, 15, 3));
+
+        int[] A1 = {2, 11, 11, 11, 12};
+        System.out.println(solution(A1, 10, 4));
+
+        int[] A2 = {1000000, 2, 1, 2, 1000000};
+        System.out.println(solution(A2, 10000, 3000));
+
+        int[] A3 = {500000, 0, 500000, 500000, 500000};
+        System.out.println(solution(A3, 10000, 3000));
     }
 }
