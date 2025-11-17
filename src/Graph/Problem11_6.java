@@ -211,6 +211,7 @@ public class Problem11_6 {
     private static boolean dfs(char[][] board, String word, int r, int c, int index, boolean[][] visited) {
         // Base cases
         if (index == word.length()) return true;
+        
         if (r < 0 || c < 0 || r >= board.length || c >= board[0].length
                 || visited[r][c] || board[r][c] != word.charAt(index)) {
             return false;
@@ -390,21 +391,35 @@ public class Problem11_6 {
         // int result = numIslands(islands);
         // System.out.println(result);
 
+        // Problem 58
+        char[][] board = {
+            {'o','a','a','n'},
+            {'e','t','a','e'},
+            {'i','h','k','r'},
+            {'i','f','l','v'}
+        };
+
+        String[] words = {"oath","pea","eat","rain"};
+        List<String> res = findWords(board, words);
+        for (String s : res){
+            System.out.println(s);
+        }
+
         // Problem 59
-        char[][] grid1 = {
-            {'0','E','0','0'},
-            {'E','0','W','E'},
-            {'0','E','0','0'}
-        };
+        // char[][] grid1 = {
+        //     {'0','E','0','0'},
+        //     {'E','0','W','E'},
+        //     {'0','E','0','0'}
+        // };
 
-        char[][] grid2 = {
-            {'0','E','0','0'},
-            {'E','E','W','E'},
-            {'0','E','0','0'}
-        };
+        // char[][] grid2 = {
+        //     {'0','E','0','0'},
+        //     {'E','E','W','E'},
+        //     {'0','E','0','0'}
+        // };
 
-        System.out.println(maxBombed(grid1)); // Expected 3
-        System.out.println(maxBombed(grid2)); // Expected 2
+        // System.out.println(maxBombed(grid1)); // Expected 3
+        // System.out.println(maxBombed(grid2)); // Expected 2
 
         // Problem 28
         // int[][] A1 = {{3, 4, 6}, {2, 7, 6}};
