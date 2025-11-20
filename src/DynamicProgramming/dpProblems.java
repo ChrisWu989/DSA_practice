@@ -3,6 +3,16 @@ package DynamicProgramming;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
+
+class Node {
+    int val, left, right;
+    Node(int val, int left, int right) {
+        this.val = val; 
+        this.left = left;
+        this.right = right;
+    }
+}
 
 public class dpProblems {
   /*
@@ -83,6 +93,7 @@ public class dpProblems {
   }
 
   /*
+  Problem 115
   Letter Combinations of a Phone Number
   Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent.
   A mapping of digit to letters (just like on the telephone buttons) is given below. Note that 1 does not map to any letters.
@@ -126,7 +137,7 @@ public class dpProblems {
   }
 
   /*
-  Problem 34
+  Problem 34/35
   An industrial company has N factories, each producinf some pollution every month. The company has
   decided to reduce its total fume emissions by equipping some of the factories with one or more filters
 
@@ -153,7 +164,65 @@ public class dpProblems {
   One filter at each nonzero factory
   */
 
+  //36 37
+
+  /*
+  Problem 52
+  Binary Search Tree: Beautiful Lending Tree
+  A lending tree of N people is defined using a binary tree of N nodes, where each node represents a person.
+  For each person, the left child is the person from whom one has borrowed money.
+  Whereas, the right child is the person to whom one has lent money.
+  A node’s value is equal to the amount of money a person currently has.
+
+  A good lending tree has a condition by which the amount of money borrowed by each person should be less 
+  than the amount of the person currently has, which in turn should be less than the amount of money one has lent. 
+  When this condition is enforced at a subtree level and not just at the node level, the lending tree becomes a beautiful a lending tree.
+
+  Hence, given a lending tree, find if it is beautiful or not. Print 1 if beautiful and print 0 if not
+
+  Input Format
+  The first line of the input contains an integer N, denoting the number of people in the lending tree.
+  Each line i of the N subsequent lines contains 4 space-separated integers, denoting the index, value, index of the left child, index of right child of the i'th node of the lending tree.
+  Note that if there is no left or right child, then the index will be -1. Note that the person with index 1 will always be the root of the tree.
+
+  Sample Input
+  6
+  1 5 2 3
+  2 2 4 -1
+  4 1 -1 -1
+  3 8 5 6
+  5 6 -1 -1
+  6 10 -1 -1 
+
+  Sample Output
+  1
+
+  Explanation 
+  Here, for each node, the amount of money borrowed by each person is less than the amount of the person currently has, which in turn should be less than the amount of money one has lent. 
+  Note that is also true at the subtree level. Hence, the given lending tree is beautiful. Hence, the answer is 1.
+  */
+
+  static Node[] tree;
+
+  public static int isBeautiful(Node[] nodes){
+    tree = nodes;
+    return isBST(1, (int) Long.MIN_VALUE, (int) Long.MAX_VALUE) ? 1 : 0;
+  }
+
+  // Check left subtree val < node val < right subtree val
+  // borrowing val < current val < lending Val
+  public static boolean isBST(int index, int borrow, int lend){
+    if (index == -1) return true;
+
+    Node node = tree[index];
+
+    if (node.val <= borrow || node.val >= lend) return false;
+
+    return isBST(node.left, borrow, node.val) && isBST(node.right, node.val, lend);
+  }
+
   public static void main(String[] args) {
+    // Coin DP problem
     // int[] coins1 = {1, 2, 5};
     // System.out.println(coinCount(coins1, 11)); // Output: 3
 
@@ -163,8 +232,26 @@ public class dpProblems {
     // int[] coins3 = {25, 10, 4};
     // System.out.println(coinCount(coins3, 41)); // Output: 5
 
-    System.out.println(allParenthesis(3));
+    // Parenthesis DP problem
+    // System.out.println(allParenthesis(3));
 
+    // Lettercombo problem
     System.out.println(letterCombo("23"));
+
+    // Problem 52
+    // Scanner sc = new Scanner(System.in);
+
+    // int n = sc.nextInt(); 
+    // Node[] nodes = new Node[n + 1]; // First line int N
+
+    // for (int i = 0; i < n; i++) { // Subsequent lines
+    //   int idx = sc.nextInt();
+    //   int val = sc.nextInt();
+    //   int left = sc.nextInt();
+    //   int right = sc.nextInt();
+    //   nodes[idx] = new Node(val, left, right);
+    // }
+
+    // System.out.println(isBeautiful(nodes));
   }
 }
