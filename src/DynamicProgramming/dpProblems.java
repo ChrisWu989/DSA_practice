@@ -2,7 +2,9 @@ package DynamicProgramming;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Scanner;
 
 class Node {
@@ -138,7 +140,7 @@ public class dpProblems {
 
   /*
   Problem 34/35
-  An industrial company has N factories, each producinf some pollution every month. The company has
+  An industrial company has N factories, each producing some pollution every month. The company has
   decided to reduce its total fume emissions by equipping some of the factories with one or more filters
 
   Every such filter reduces the pollution of a factory by half. when a subsequent filter is applied, it
@@ -163,8 +165,31 @@ public class dpProblems {
   Given A = [3, 0, 5] returns 2
   One filter at each nonzero factory
   */
+  public static int solution34(int[] A){
+    PriorityQueue<Double> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
+    double total = 0; //Total polution
 
-  //36 37
+    for (int x : A) {
+      total += x;
+      maxHeap.offer((double) x); //Every factory offered into queue
+    }
+
+    double target = total / 2; //Target = half pollution
+    double reduced = 0; // How much we have reduced want this less than target
+    int filters = 0; // How many filters we need
+
+    while (reduced < target) {
+      double largest = maxHeap.poll();     // most polluting factory
+      double newVal = largest / 2;         // apply filter
+
+      reduced += largest - newVal;         // pollution reduced
+      filters++;
+
+      maxHeap.offer(newVal);              // push back updated pollution
+    }
+
+    return filters;
+  }
 
   /*
   Problem 52
@@ -236,22 +261,32 @@ public class dpProblems {
     // System.out.println(allParenthesis(3));
 
     // Lettercombo problem
-    System.out.println(letterCombo("23"));
+    // System.out.println(letterCombo("23"));
+
+    // Problem 34/35
+    int[] fac1 = {5, 19, 8, 1};
+    System.out.println(solution34(fac1)); // Output: 3
+
+    int[] fac2 = {10, 10};
+    System.out.println(solution34(fac2));  // Output: 2
+
+    int[] fac3 = {3, 0, 5};
+    System.out.println(solution34(fac3)); // Output: 2
 
     // Problem 52
-    // Scanner sc = new Scanner(System.in);
+    Scanner sc = new Scanner(System.in);
 
-    // int n = sc.nextInt(); 
-    // Node[] nodes = new Node[n + 1]; // First line int N
+    int n = sc.nextInt(); 
+    Node[] nodes = new Node[n + 1]; // First line int N
 
-    // for (int i = 0; i < n; i++) { // Subsequent lines
-    //   int idx = sc.nextInt();
-    //   int val = sc.nextInt();
-    //   int left = sc.nextInt();
-    //   int right = sc.nextInt();
-    //   nodes[idx] = new Node(val, left, right);
-    // }
+    for (int i = 0; i < n; i++) { // Subsequent lines
+      int idx = sc.nextInt();
+      int val = sc.nextInt();
+      int left = sc.nextInt();
+      int right = sc.nextInt();
+      nodes[idx] = new Node(val, left, right);
+    }
 
-    // System.out.println(isBeautiful(nodes));
+    System.out.println(isBeautiful(nodes));
   }
 }
