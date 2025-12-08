@@ -4,9 +4,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.Stack;
 
-// 37 38 39
 public class dpProblemsTwo {
     /*
     Problem 36
@@ -214,6 +212,41 @@ public class dpProblemsTwo {
         memo.put(key, best);
         return best;
     }
+    /*
+    Problem 40
+    Consider infinite sequence 0, 1, 1, 2, 3, 5, 8, 13, 12, 7, 10, 8, 9, ...
+    The 0th element is 0 and the 1st element is 1. The successive elements are defined recursively.
+    Each of them is the sum of the separate digits of the two previous elements
+    
+    Write a function that iven an integer N returns the N-th element of the above sequence
+    N = 2 returns 1
+    N = 6 returns 8
+    N = 10 returns 10
+    */
+   public static int solution40(int N){
+        if (N == 0) return 0;
+        if (N == 1) return 1;
+
+        int a = 0; // a[0]
+        int b = 1; // a[1]
+
+        for (int i = 2; i <= N; i++) {
+            int next = sumDigits(a) + sumDigits(b);
+            a = b;
+            b = next;
+        }
+        return b;
+    }
+
+    private static int sumDigits(int x) {
+        int sum = 0;
+        x = Math.abs(x);
+        while (x > 0) {
+            sum += x % 10;
+            x /= 10;
+        }
+        return sum;
+    }
     public static void main(String[] args) {
         // Problem 36
         // int[] num1 = {5, 3, 10, 6, 11};
@@ -246,9 +279,14 @@ public class dpProblemsTwo {
         // System.out.println(solution38(new int[]{1, 1, 2, 3, 1, 2, 2, 1, 1, 2})); // 4
 
         // Problem 39
-        System.out.println(solution39("CBCAAXA"));      // "BAX"
-        System.out.println(solution39("ZYXZYZY"));      // "XYZ"
-        System.out.println(solution39("ABCBACDDAA"));   // ""
-        System.out.println(solution39("AKFXFMOGKFB"));  // "AKFMOGB"
+        // System.out.println(solution39("CBCAAXA"));      // "BAX"
+        // System.out.println(solution39("ZYXZYZY"));      // "XYZ"
+        // System.out.println(solution39("ABCBACDDAA"));   // ""
+        // System.out.println(solution39("AKFXFMOGKFB"));  // "AKFMOGB"
+
+        // Problem 40
+        System.out.println(solution40(2));
+        System.out.println(solution40(6));
+        System.out.println(solution40(10));
     }
 }
